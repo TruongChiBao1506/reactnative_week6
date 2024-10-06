@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 const DATA = [
     {
@@ -41,8 +41,8 @@ const DATA = [
 const Item = ({ item }) => (
     <View style={Styles.ListItem}>
         <Image source={item.image} style={Styles.ImageItem} />
-        <View style = {{marginLeft:10}}>
-            <Text style = {{width:180}}>{item.name}</Text>
+        <View style={{ marginLeft: 10 }}>
+            <Text style={{ width: 180 }}>{item.name}</Text>
             <Text><Text style={{ color: '#7D5B5B' }}>Shop</Text> {item.shop}</Text>
         </View>
         <TouchableOpacity style={Styles.ButtonChat}>
@@ -50,12 +50,13 @@ const Item = ({ item }) => (
         </TouchableOpacity>
     </View>
 )
-const App = () => {
+const windowWidth = Dimensions.get('window').width;
+const App = ({ navigation }) => {
 
     return (
         <View style={Styles.container}>
             <View style={Styles.Header}>
-                <TouchableOpacity style={Styles.ButtonHeader}>
+                <TouchableOpacity style={Styles.ButtonHeader} onPress={() => navigation.navigate('Screen4_b')}>
                     <Image source={require('./Images/ant-design_arrow-left-outlined.png')} style={{ width: 24, height: 24 }} />
                 </TouchableOpacity>
                 <Text style={{ color: '#FFFFFF' }}>Chat</Text>
@@ -63,33 +64,31 @@ const App = () => {
                     <Image source={require('./Images/bi_cart-check.png')} style={{ width: 24, height: 24 }} />
                 </TouchableOpacity>
             </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', width: 360,   borderBottomWidth:1,
-        borderBottomColor:'#C4C4C4' }}>
-                <Text style={{ color: '#000000', height: 28, width: 320 }}>Bạn có thắc mắc với sản phẩm vừa xem đừng ngại chát với shop!</Text>
+            <View style={{ alignItems: 'center', justifyContent: 'center', width: 360, borderBottomWidth: 1, borderBottomColor: '#C4C4C4', height: 60 }}>
+                <Text style={{ color: '#000000', width: 320 }}>Bạn có thắc mắc với sản phẩm vừa xem đừng ngại chát với shop!</Text>
             </View>
-            <SafeAreaView style = {{width:360}}>
+            <SafeAreaView style={{ width: windowWidth, flex: 3 }}>
                 <FlatList
                     data={DATA}
                     renderItem={({ item }) => <Item item={item} />}
                     keyExtractor={item => item.id}
                 />
             </SafeAreaView>
-            <View style = {Styles.TabBotton}>
+            <View style={Styles.TabBotton}>
                 <TouchableOpacity>
-                    <Image source={require('./Images/Group 10.png')} style = {{width:23, height:14, marginHorizontal:15}}/>
+                    <Image source={require('./Images/Group 10.png')} style={{ width: 23, height: 14, marginHorizontal: 20 }} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Image source={require('./Images/Home.png')} style = {{width:24, height:24, marginHorizontal:15}}/>
+                    <Image source={require('./Images/Home.png')} style={{ width: 24, height: 24, marginHorizontal: 20 }} />
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Image source={require('./Images/Vector 1 (Stroke).png')} style = {{width:26, height:24, marginHorizontal:15}}/>
+                    <Image source={require('./Images/Vector 1 (Stroke).png')} style={{ width: 26, height: 24, marginHorizontal: 20 }} />
                 </TouchableOpacity>
             </View>
         </View>
 
     )
 }
-
 const Styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -97,7 +96,8 @@ const Styles = StyleSheet.create({
         alignItems: 'center'
     },
     Header: {
-        width: 360,
+        flex:0.35,
+        width: windowWidth,
         height: 42,
         backgroundColor: '#1BA9FF',
         flexDirection: 'row',
@@ -108,15 +108,15 @@ const Styles = StyleSheet.create({
         marginHorizontal: 15
     },
     ListItem: {
-        width: 360,
+        width: windowWidth,
         height: 80,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
         marginVertical: 8,
-        borderBottomWidth:1,
-        borderBottomColor:'#C4C4C4'
+        borderBottomWidth: 1,
+        borderBottomColor: '#C4C4C4'
     },
 
     ImageItem: {
@@ -131,13 +131,14 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         right: 0
     },
-     TabBotton:{
-        width:360,
-         height:49,
-         backgroundColor:'#1BA9FF',
-         flexDirection:'row',
-         justifyContent:'space-between',
-         alignItems:'center'
-     }
+    TabBotton: {
+        flex:0.35,
+        width: windowWidth,
+        height: 49,
+        backgroundColor: '#1BA9FF',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    }
 })
 export default App;
